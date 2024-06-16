@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    build:
+      context: ./db
+      dockerfile: dockerfile
+    ports:
+      - "5432:5432"
+
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  tester:
+    container_name: tester
+    image: busybox
+    build:
+      context: ./tester
+      dockerfile: dockerfile
+    volumes:
+      - test_vol:/vol
+    depends_on:
+      - db
+      - server
+    command: sh test.sh
