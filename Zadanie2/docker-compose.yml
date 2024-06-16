@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    image: diamol/ch06-todo-list
+    ports:
+      - "80:80"
+    restart: always
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: haslo1
+      MYSQL_DATABASE: database-todo
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db_data:
