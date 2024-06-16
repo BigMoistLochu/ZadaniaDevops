@@ -5,7 +5,7 @@ services:
     image: diamol/ch06-todo-list
     ports:
       - "80:80"
-    restart: always
+    restart: unless-stopped
 
   db:
     image: mysql:latest
@@ -14,7 +14,7 @@ services:
       MYSQL_DATABASE: database-todo
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
 
 volumes:
   db_data:
